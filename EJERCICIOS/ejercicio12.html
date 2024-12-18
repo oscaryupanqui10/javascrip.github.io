@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprobar Palíndromo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>12. Realizar un programa javascript, que permita determinar si una palabra es
+        palíndromo
+        </h1>
+    <form id="palindromeForm">
+        <label for="wordInput">Introduce una palabra:</label>
+        <input type="text" id="wordInput" name="wordInput" required>
+        <button type="submit">Comprobar</button>
+    </form>
+    <h2>Resultado:</h2>
+    <p id="result"></p>
+
+    <script>
+        document.getElementById('palindromeForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita el envío del formulario
+
+            const word = document.getElementById('wordInput').value.toLowerCase();
+            const reversed = word.split('').reverse().join('');
+            
+            if (!word) {
+                document.getElementById('result').textContent = "Por favor, introduce una palabra válida.";
+                return;
+            }
+
+            const message = word === reversed ? "Es palíndromo" : "No es palíndromo";
+            document.getElementById('result').textContent = message;
+        });
+    </script>
+</body>
+</html>

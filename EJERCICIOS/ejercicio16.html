@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Triángulo de Pascal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .triangle {
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            text-align: center;
+            margin-top: 20px;
+            line-height: 1.5;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <h1>16.Generar la matriz de pascal</h1>
+    <form id="pascalForm">
+        <label for="numInput">Introduce el número de filas:</label>
+        <input type="number" id="numInput" name="numInput" min="1" required>
+        <button type="submit">Generar</button>
+    </form>
+
+    <h2>Resultado:</h2>
+    <div class="triangle" id="result"></div>
+
+    <script>
+        document.getElementById('pascalForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita el envío del formulario
+
+            const n = parseInt(document.getElementById('numInput').value);
+            const triangle = [];
+
+            // Generación del Triángulo de Pascal
+            for (let i = 0; i < n; i++) {
+                triangle[i] = [];
+                triangle[i][0] = 1;
+                for (let j = 1; j < i; j++) {
+                    triangle[i][j] = triangle[i - 1][j - 1] + triangle[i - 1][j];
+                }
+                triangle[i][i] = 1;
+            }
+
+            // Crear el triángulo con espacios para formato visual
+            let resultText = "";
+            for (let i = 0; i < n; i++) {
+                const row = triangle[i].join(" "); // Utilizamos &nbsp; para mejorar la alineación
+                const spaces = " ".repeat(n - i - 1); // Agrega espacios para centrar cada fila
+                resultText += spaces + row + "\n";
+            }
+
+            // Mostrar el triángulo en la página
+            document.getElementById('result').textContent = resultText.trim();
+        });
+    </script>
+</body>
+</html>

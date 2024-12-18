@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotar Dígitos Pares</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>5. Diseñar un algoritmo para rotar a la derecha los dígitos pares de un número cualquiera
+        que tenga una cantidad mayor o igual a 6 dígitos.</h1>
+        <h3>Ejemplo Número: 6325423</h3>
+        <h3>Número Rotado: 2365243</h3>
+    <form id="rotateForm">
+        <label for="numInput">Introduce un número con al menos 6 dígitos:</label>
+        <input type="text" id="numInput" name="numInput" required>
+        <button type="submit">Rotar</button>
+    </form>
+    <h2>Resultado:</h2>
+    <div class="result" id="result"></div>
+
+    <script>
+        document.getElementById('rotateForm').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+
+            const num = document.getElementById('numInput').value;
+            if (num.length < 6) {
+                document.getElementById('result').textContent = "El número debe tener al menos 6 dígitos.";
+                return;
+            }
+
+            const digits = num.split('');
+            const evens = digits.filter(d => d % 2 === 0);
+            const nonEvens = digits.filter(d => d % 2 !== 0);
+
+            // Si no hay dígitos pares, mostrar mensaje
+            if (evens.length === 0) {
+                document.getElementById('result').textContent = "No hay dígitos pares para rotar.";
+                return;
+            }
+
+            // Rotar los dígitos pares (mover el último al principio)
+            const rotatedEvens = [evens.pop(), ...evens];
+
+            // Reconstruir el número con los dígitos pares rotados
+            let rotatedNum = '';
+            let evenIndex = 0;
+            digits.forEach(digit => {
+                if (digit % 2 === 0) {
+                    rotatedNum += rotatedEvens[evenIndex];
+                    evenIndex++;
+                } else {
+                    rotatedNum += digit;
+                }
+            });
+
+            document.getElementById('result').innerHTML = `Número con dígitos pares rotados: ${rotatedNum}`;
+        });
+    </script>
+</body>
+</html>

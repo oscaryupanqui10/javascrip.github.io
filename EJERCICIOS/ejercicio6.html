@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encontrar Dígitos Repetidos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>6. Dado un número x>100 mostrar los dígitos repetidos.</h1>
+    <form id="repeatForm">
+        <label for="numInput">Introduce un número mayor que 100:</label>
+        <input type="text" id="numInput" name="numInput" required>
+        <button type="submit">Buscar</button>
+    </form>
+    <h2>Resultado:</h2>
+    <div class="result" id="result"></div>
+
+    <script>
+        document.getElementById('repeatForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita el envío del formulario
+
+            const num = document.getElementById('numInput').value;
+            if (num <= 100) {
+                document.getElementById('result').textContent = "El número debe ser mayor que 100.";
+                return;
+            }
+
+            const digits = num.split('');
+            const repeated = digits.filter((d, i) => digits.indexOf(d) !== i);
+            const uniqueRepeated = [...new Set(repeated)];
+
+            if (uniqueRepeated.length > 0) {
+                document.getElementById('result').innerHTML = `Dígitos repetidos: ${uniqueRepeated.join(', ')}`;
+            } else {
+                document.getElementById('result').textContent = "No hay dígitos repetidos.";
+            }
+        });
+    </script>
+</body>
+</html>

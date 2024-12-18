@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprobar Número Primo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>8. Verificar si un número introducido por teclado es primo</h1>
+    <form id="primeForm">
+        <label for="numInput">Introduce un número:</label>
+        <input type="text" id="numInput" name="numInput" required>
+        <button type="submit">Comprobar</button>
+    </form>
+    <h2>Resultado:</h2>
+    <p id="result"></p>
+
+    <script>
+        document.getElementById('primeForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita el envío del formulario
+
+            const num = document.getElementById('numInput').value;
+            if (!num || isNaN(num)) {
+                document.getElementById('result').textContent = "Por favor, introduce un número válido.";
+                return;
+            }
+
+            const number = parseInt(num);
+            let message = "Es primo.";
+
+            if (number < 2) {
+                message = "No es primo.";
+            } else {
+                for (let i = 2; i <= Math.sqrt(number); i++) {
+                    if (number % i === 0) {
+                        message = "No es primo.";
+                        break;
+                    }
+                }
+            }
+
+            document.getElementById('result').textContent = message;
+        });
+    </script>
+</body>
+</html>

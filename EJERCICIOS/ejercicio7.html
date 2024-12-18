@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificador de Número Capicúa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>7. Dado un número entero positivo x, se desea saber si es capicúa.</h1>
+        <h2>Ejemplo</h2>
+        <h3>Si x = 37673 entonces mostrar “ES CAPICUA”</h3>
+        <h3>Si x = 956128 entonces mostrar “NO ES CAPICUA”</h3>
+    <form id="palindromeForm">
+        <label for="numInput">Introduce un número:</label>
+        <input type="text" id="numInput" name="numInput" required>
+        <button type="submit">Verificar</button>
+    </form>
+    <h2>Resultado:</h2>
+    <p id="result"></p>
+
+    <script>
+        document.getElementById('palindromeForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita el envío del formulario
+
+            const num = document.getElementById('numInput').value;
+            if (!num || isNaN(num)) {
+                document.getElementById('result').textContent = "Por favor, introduce un número válido.";
+                return;
+            }
+
+            const reversed = num.split('').reverse().join('');
+            const resultMessage = num === reversed ? "ES CAPICUA" : "NO ES CAPICUA";
+
+            document.getElementById('result').textContent = resultMessage;
+        });
+    </script>
+</body>
+</html>

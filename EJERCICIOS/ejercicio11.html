@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serie Exponencial</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>11. Generar la serie exponencial</h1>
+    <form id="exponentialForm">
+        <label for="numInput">Introduce el número N de términos de la serie:</label>
+        <input type="text" id="numInput" name="numInput" required>
+        <label for="xInput">Introduce el valor de x:</label>
+        <input type="text" id="xInput" name="xInput" required>
+        <button type="submit">Calcular</button>
+    </form>
+    <h2>Resultado:</h2>
+    <p id="result"></p>
+
+    <script>
+        document.getElementById('exponentialForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita el envío del formulario
+
+            const n = document.getElementById('numInput').value;
+            const x = document.getElementById('xInput').value;
+            
+            // Validación de entradas
+            if (!n || isNaN(n) || n <= 0 || !x || isNaN(x)) {
+                document.getElementById('result').textContent = "Por favor, introduce números válidos para N y x.";
+                return;
+            }
+
+            const numTerms = parseInt(n);
+            const xValue = parseFloat(x);
+            let sum = 1; // El primer término de la serie (x^0 / 0!)
+            let term = 1;
+            let resultDetails = `Serie Exponencial (con ${numTerms} términos y x = ${xValue}):<br>`;
+
+            // Calcular la serie exponencial
+            for (let i = 1; i <= numTerms; i++) {
+                term *= xValue / i; // Calcula el siguiente término
+                sum += term; // Suma el término a la serie
+
+                // Detallar el término calculado en cada paso
+                resultDetails += `Término ${i}: ${xValue}^${i} / ${i}! = ${term} <br>`;
+            }
+
+            resultDetails += `<br><strong>Suma total de la serie: ${sum}</strong>`;
+            document.getElementById('result').innerHTML = resultDetails;
+        });
+    </script>
+</body>
+</html>

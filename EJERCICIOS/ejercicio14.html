@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .calculator {
+            border: 2px solid #ccc;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 80px);
+            grid-gap: 10px;
+        }
+        .calculator button {
+            padding: 20px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        #display {
+            grid-column: span 4;
+            padding: 20px;
+            font-size: 30px;
+            text-align: right;
+            border: 2px solid #ccc;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+        }
+        button:active {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>14. Realizar una programa calculadora (+,-,/,*,!,xy) con funciones y formularios</h1>
+    <div id="display">0</div>
+    <div class="calculator">
+        <button onclick="appendToDisplay('1')">1</button>
+        <button onclick="appendToDisplay('2')">2</button>
+        <button onclick="appendToDisplay('3')">3</button>
+        <button onclick="operate('+')">+</button>
+
+        <button onclick="appendToDisplay('4')">4</button>
+        <button onclick="appendToDisplay('5')">5</button>
+        <button onclick="appendToDisplay('6')">6</button>
+        <button onclick="operate('-')">-</button>
+
+        <button onclick="appendToDisplay('7')">7</button>
+        <button onclick="appendToDisplay('8')">8</button>
+        <button onclick="appendToDisplay('9')">9</button>
+        <button onclick="operate('*')">*</button>
+
+        <button onclick="appendToDisplay('0')">0</button>
+        <button onclick="clearDisplay()">C</button>
+        <button onclick="calculate()">=</button>
+        <button onclick="operate('/')">/</button>
+
+        <button onclick="factorial()">!</button>
+        <button onclick="operate('^')">^</button>
+    </div>
+    <script>
+        let currentInput = "";
+        let previousInput = "";
+        let operator = "";
+
+        function appendToDisplay(value) {
+            if (currentInput === "0" && value !== '.') {
+                currentInput = value;
+            } else {
+                currentInput += value;
+            }
+            updateDisplay();
+        }
+
+        function clearDisplay() {
+            currentInput = "";
+            previousInput = "";
+            operator = "";
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            document.getElementById("display").textContent = currentInput || "0";
+        }
+
+        function operate(op) {
+            if (currentInput === "") return;
+            if (previousInput !== "") {
+                calculate();
+            }
+            operator = op;
+            previousInput = currentInput;
+            currentInput = "";
+        }
+
+        function calculate() {
+            let result;
+            const prev = parseFloat(previousInput);
+            const current = parseFloat(currentInput);
+            if (isNaN(prev) || isNaN(current)) return;
+
+            switch (operator) {
+                case "+":
+                    result = prev + current;
+                    break;
+                case "-":
+                    result = prev - current;
+                    break;
+                case "*":
+                    result = prev * current;
+                    break;
+                case "/":
+                    if (current === 0) {
+                        result = "Error";
+                    } else {
+                        result = prev / current;
+                    }
+                    break;
+                case "^":
+                    result = Math.pow(prev, current);
+                    break;
+                default:
+                    return;
+            }
+
+            currentInput = result.toString();
+            operator = "";
+            previousInput = "";
+            updateDisplay();
+        }
+
+        function factorial() {
+            const num = parseInt(currentInput);
+            if (num < 0) {
+                currentInput = "Error";
+            } else {
+                let result = 1;
+                for (let i = 1; i <= num; i++) {
+                    result *= i;
+                }
+                currentInput = result.toString();
+            }
+            updateDisplay();
+        }
+    </script>
+</body>
+</html>

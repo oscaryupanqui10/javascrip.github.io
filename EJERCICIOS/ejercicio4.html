@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotar Número</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>4. Rotar un número por la izquierda y derecha</h1>
+    <form id="rotateForm">
+        <label for="numInput">Introduce un número:</label>
+        <input type="text" id="numInput" name="numInput" required>
+        <button type="submit">Rotar</button>
+    </form>
+    <h2>Resultado:</h2>
+    <div class="result" id="result"></div>
+
+    <script>
+        document.getElementById('rotateForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita el envío del formulario
+
+            const num = document.getElementById('numInput').value;
+            if (!num || isNaN(num)) {
+                document.getElementById('result').textContent = "Por favor, introduce un número válido.";
+                return;
+            }
+
+            const leftRotated = num.slice(1) + num[0];
+            const rightRotated = num[num.length - 1] + num.slice(0, -1);
+
+            document.getElementById('result').innerHTML = `Número rotado a la izquierda: ${leftRotated}<br>Número rotado a la derecha: ${rightRotated}`;
+        });
+    </script>
+</body>
+</html>

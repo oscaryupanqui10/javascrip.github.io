@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fibonacci Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1  target="contenido1">1. Generador de Serie de Fibonacci : 0,1,1,2,3,5,8, ……………………………</h1>
+    <form id="fibonacciForm">
+        <label for="numTerms">Introduce el número de términos de Fibonacci:</label>
+        <input type="number" id="numTerms" name="numTerms" min="1" required>
+        <button type="submit">Generar Serie</button>
+    </form>
+    <h2>Resultado:</h2>
+    <p id="result"></p>
+
+    <script>
+
+        document.getElementById('fibonacciForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita el envío del formulario
+
+            const n = parseInt(document.getElementById('numTerms').value);
+            if (isNaN(n) || n < 1) {
+                document.getElementById('result').textContent = "Por favor, introduce un número válido mayor o igual a 1.";
+                return;
+            }
+
+            let a = 0, b = 1, series = [a, b];
+
+            for (let i = 2; i < n; i++) {
+                let next = a + b;
+                series.push(next);
+                a = b;
+                b = next;
+            }
+
+            if (n === 1) series = [a]; // Si solo se requiere un término
+
+            document.getElementById('result').textContent = "Serie Fibonacci: " + series.join(", ");
+        });
+    </script>
+</body>
+</html>

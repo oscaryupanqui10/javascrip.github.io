@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generar Números Primos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>9. Generar los números primos para n</h1>
+    <form id="primeForm">
+        <label for="numInput">Introduce cuántos números primos deseas generar:</label>
+        <input type="text" id="numInput" name="numInput" required>
+        <button type="submit">Generar</button>
+    </form>
+    <h2>Resultado:</h2>
+    <p id="result"></p>
+
+    <script>
+        document.getElementById('primeForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita el envío del formulario
+
+            const num = document.getElementById('numInput').value;
+            if (!num || isNaN(num) || num < 1) {
+                document.getElementById('result').textContent = "Por favor, introduce un número válido mayor o igual a 1.";
+                return;
+            }
+
+            const n = parseInt(num);
+            const primes = [];
+            let i = 2; // Comenzamos desde el primer número primo
+
+            // Generar los primeros 'n' números primos
+            while (primes.length < n) {
+                let isPrime = true;
+                for (let j = 2; j <= Math.sqrt(i); j++) {
+                    if (i % j === 0) {
+                        isPrime = false;
+                        break;
+                    }
+                }
+                if (isPrime) primes.push(i);
+                i++;
+            }
+
+            document.getElementById('result').textContent = `Primeros ${n} números primos: ${primes.join(', ')}`;
+        });
+    </script>
+</body>
+</html>

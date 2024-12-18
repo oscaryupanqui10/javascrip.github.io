@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invertir Cadena</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>13. Invertir una cadena de caracteres</h1>
+    <form id="reverseForm">
+        <label for="strInput">Introduce una cadena:</label>
+        <input type="text" id="strInput" name="strInput" required>
+        <button type="submit">Invertir</button>
+    </form>
+    <h2>Resultado:</h2>
+    <p id="result"></p>
+
+    <script>
+        document.getElementById('reverseForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita el envío del formulario
+
+            const str = document.getElementById('strInput').value;
+            
+            if (!str) {
+                document.getElementById('result').textContent = "Por favor, introduce una cadena válida.";
+                return;
+            }
+
+            const reversedString = str.split('').reverse().join('');
+            document.getElementById('result').textContent = `Cadena invertida: ${reversedString}`;
+        });
+    </script>
+</body>
+</html>
